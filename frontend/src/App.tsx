@@ -6,10 +6,14 @@ import CarbonForm from './components/CarbonForm'
 import CarbonResult from './components/CarbonResult'
 import Tips from './components/Tips'
 import Gallery from './components/Gallery'
+import CampaignsPage from './components/CampaignsPage'
 import BackgroundSlideshow from './components/BackgroundSlideshow'
 import './App.css'
 
+type Tab = 'calculator' | 'campaigns'
+
 export default function App() {
+  const [tab, setTab] = useState<Tab>('calculator')
   const [result, setResult] = useState<CarbonFootprintResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -31,13 +35,29 @@ export default function App() {
     <div className="app">
       <BackgroundSlideshow />
       <Header />
+
+      <nav className="app-tabs">
+        <button className={`tab ${tab === 'calculator' ? 'active' : ''}`} onClick={() => setTab('calculator')}>
+          📊 Hesaplayıcı
+        </button>
+        <button className={`tab ${tab === 'campaigns' ? 'active' : ''}`} onClick={() => setTab('campaigns')}>
+          🎯 Kampanyalar
+        </button>
+      </nav>
+
       <main>
-        <CarbonForm onCalculate={handleCalculate} loading={loading} />
-        {error && <div className="error">{error}</div>}
-        {result && <CarbonResult data={result} />}
-        <Tips />
-        <Gallery />
+        {tab === 'calculator' && (
+          <>
+            <CarbonForm onCalculate={handleCalculate} loading={loading} />
+            {error && <div className="error">{error}</div>}
+            {result && <CarbonResult data={result} />}
+            <Tips />
+            <Gallery />
+          </>
+        )}
+        {tab === 'campaigns' && <CampaignsPage />}
       </main>
+
       <footer>
         <p>Bu uygulama sera gazı emisyonları hakkında farkındalık yaratmak amacıyla hazırlanmıştır.</p>
       </footer>

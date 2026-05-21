@@ -73,10 +73,94 @@ body {
   line-height: 1.6;
 }
 
+/* ===== TABS ===== */
+.app-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.tab {
+  padding: 10px 28px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #999;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.2s;
+  width: auto;
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ccc;
+}
+
+.tab.active {
+  background: linear-gradient(90deg, rgba(107, 203, 119, 0.2), rgba(77, 150, 255, 0.2));
+  border-color: rgba(107, 203, 119, 0.3);
+  color: #6bcb77;
+}
+
 main {
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+
+/* ===== CAMPAIGNS PAGE ===== */
+.campaigns-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.campaigns-header {
+  text-align: center;
+}
+
+.campaigns-header h2 {
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  margin-bottom: 8px;
+}
+
+.campaigns-header p {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.campaigns-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.campaign-tab {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #aaa;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: auto;
+}
+
+.campaign-tab:hover {
+  background: rgba(107, 203, 119, 0.1);
+}
+
+.campaign-tab.active {
+  background: rgba(107, 203, 119, 0.15);
+  border-color: rgba(107, 203, 119, 0.3);
+  color: #6bcb77;
 }
 
 main > * {
@@ -739,6 +823,309 @@ button:disabled {
 
 .gallery-attribution a:hover {
   text-decoration: underline;
+}
+
+/* ===== COMPOSTING CAMPAIGN ===== */
+.campaign-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.campaign-hero {
+  text-align: center;
+}
+
+.campaign-emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.campaign-hero h2 {
+  font-size: 1.6rem;
+  color: #e0e0e0;
+  margin-bottom: 10px;
+}
+
+.campaign-tagline {
+  font-size: 0.92rem;
+  color: #aaa;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.campaign-tagline strong {
+  color: #6bcb77;
+}
+
+.campaign-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-card.highlight {
+  border-color: rgba(107, 203, 119, 0.3);
+  background: rgba(107, 203, 119, 0.06);
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #6bcb77;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: #999;
+  line-height: 1.4;
+}
+
+.campaign-calculator {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.campaign-calculator h3,
+.campaign-collective h3,
+.campaign-howto h3 {
+  font-size: 1.05rem;
+  color: #c0c0c0;
+  margin-bottom: 14px;
+}
+
+.calc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.calc-row label {
+  font-size: 0.85rem;
+  color: #aaa;
+  border: none;
+  padding: 0;
+  flex: 1;
+  min-width: 200px;
+}
+
+.calc-input-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.calc-input-group button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c0c0c0;
+}
+
+.calc-input-group button:hover {
+  background: rgba(107, 203, 119, 0.2);
+}
+
+.calc-input-group input {
+  width: 70px;
+  text-align: center;
+}
+
+.calc-input-group span {
+  font-size: 0.8rem;
+  color: #888;
+  margin-left: 4px;
+}
+
+.calc-results {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.calc-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.calc-result-item span {
+  color: #aaa;
+}
+
+.text-green {
+  color: #6bcb77 !important;
+}
+
+.text-red {
+  color: #ff6b6b !important;
+}
+
+.campaign-collective {
+  background: rgba(107, 203, 119, 0.05);
+  border: 1px solid rgba(107, 203, 119, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.collective-desc {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 16px;
+}
+
+.collective-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.collective-stat {
+  text-align: center;
+}
+
+.cs-number {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #4d96ff;
+}
+
+.cs-label {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.join-btn {
+  display: inline-block;
+  width: auto;
+  padding: 12px 32px;
+  font-size: 1rem;
+  background: linear-gradient(90deg, #6bcb77, #4d96ff);
+  border-radius: 30px;
+}
+
+.join-btn.joined {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: default;
+}
+
+.join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.join-form input {
+  width: 100%;
+  padding: 10px 14px;
+}
+
+.join-form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.join-form-actions .join-btn {
+  flex: 1;
+}
+
+.cancel-btn {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  color: #999;
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: auto;
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.joined-message {
+  padding: 12px;
+  background: rgba(107, 203, 119, 0.1);
+  border: 1px solid rgba(107, 203, 119, 0.2);
+  border-radius: 10px;
+  color: #6bcb77;
+  font-size: 0.9rem;
+}
+
+.campaign-howto {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.howto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.howto-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+
+.howto-icon {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.howto-card h4 {
+  font-size: 0.88rem;
+  color: #c0c0c0;
+  margin-bottom: 4px;
+}
+
+.howto-card p {
+  font-size: 0.78rem;
+  color: #888;
+  line-height: 1.5;
+}
+
+.howto-note {
+  font-size: 0.78rem;
+  color: #ff8a80;
+  text-align: center;
 }
 
 footer {

@@ -30,3 +30,22 @@ export async function getWasteCategories(): Promise<WasteCategory[]> {
   if (!res.ok) return []
   return res.json()
 }
+
+// Campaign API
+const CAMPAIGN_URL = 'http://localhost:5000/api/campaign'
+
+export async function joinCampaign(data: { name: string; email: string; campaignId: string; weeklyOrganicKg: number }): Promise<{ id: string; totalParticipants: number }> {
+  const res = await fetch(`${CAMPAIGN_URL}/join`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) throw new Error('Katılım başarısız')
+  return res.json()
+}
+
+export async function getCampaignStats(campaignId: string): Promise<{ totalParticipants: number; totalWeeklyKg: number }> {
+  const res = await fetch(`${CAMPAIGN_URL}/${campaignId}/stats`)
+  if (!res.ok) return { totalParticipants: 0, totalWeeklyKg: 0 }
+  return res.json()
+}
