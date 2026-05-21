@@ -5,6 +5,8 @@ import Header from './components/Header'
 import CarbonForm from './components/CarbonForm'
 import CarbonResult from './components/CarbonResult'
 import Tips from './components/Tips'
+import Gallery from './components/Gallery'
+import BackgroundSlideshow from './components/BackgroundSlideshow'
 import './App.css'
 
 export default function App() {
@@ -27,12 +29,14 @@ export default function App() {
 
   return (
     <div className="app">
+      <BackgroundSlideshow />
       <Header />
       <main>
         <CarbonForm onCalculate={handleCalculate} loading={loading} />
         {error && <div className="error">{error}</div>}
         {result && <CarbonResult data={result} />}
         <Tips />
+        <Gallery />
       </main>
       <footer>
         <p>Bu uygulama sera gazı emisyonları hakkında farkındalık yaratmak amacıyla hazırlanmıştır.</p>

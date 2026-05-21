@@ -3,7 +3,7 @@ const tips = [
   { icon: '🚆', title: 'Toplu taşıma', desc: 'Özel araç yerine otobüs/tren kullanmak emisyonu %70 azaltır.' },
   { icon: '✈️', title: 'Uçak yolculuğunu azalt', desc: 'Mümkünse trenle seyahat edin. Kısa uçuşlar en yüksek km başı emisyona sahiptir.' },
   { icon: '💡', title: 'Enerji tasarrufu', desc: 'LED ampul kullanın, elektronikleri fişten çekin. Yılda 500 kg CO₂ tasarruf edebilirsiniz.' },
-  { icon: '🥗', title: 'Daha az et tüketin', desc: 'Haftada 1 gün etsiz beslenmek yılda 100 kg CO₂ tasarruf sağlar.' },
+  { icon: '🗑️', title: 'Gıda israfını önleyin', desc: 'Her yıl 1.3 milyar ton gıda çöpe gidiyor. Bu, küresel sera gazı emisyonunun %8\'inden sorumlu. İhtiyacınız kadar alın, artanları değerlendirin.' },
   { icon: '♻️', title: 'Geri dönüşüm', desc: 'Atıklarınızı ayırın. 1 ton geri dönüşüm = 1 ton CO₂ tasarrufu.' },
   { icon: '🌱', title: 'Ağaç dikin', desc: 'Bir ağaç yılda ~22 kg CO₂ emer. Her 10 ağaç = 1 uçak yolculuğu.' },
   { icon: '🔌', title: 'Yenilenebilir enerji', desc: 'Yeşil enerji tarifesine geçerek elektrik kullanımınızı sıfır karbon yapabilirsiniz.' },

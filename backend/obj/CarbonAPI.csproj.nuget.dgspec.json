@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\CarbonAPI.csproj": {}
+    "C:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\CarbonAPI.csproj": {}
   },
   "projects": {
-    "c:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\CarbonAPI.csproj": {
+    "C:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\CarbonAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\CarbonAPI.csproj",
+        "projectUniqueName": "C:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\CarbonAPI.csproj",
         "projectName": "CarbonAPI",
-        "projectPath": "c:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\CarbonAPI.csproj",
+        "projectPath": "C:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\CarbonAPI.csproj",
         "packagesPath": "C:\\Users\\PC_4156_YD26\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\obj\\",
+        "outputPath": "C:\\Users\\PC_4156_YD26\\Desktop\\yen\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PC_4156_YD26\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -21,17 +21,13 @@ export default function WasteDetail({ items, onChange }: Props) {
     getWasteCategories().then(setCategories)
   }, [])
 
-  const getOrCreate = (type: string) => {
-    let existing = items.find((i) => i.type === type)
-    if (!existing) {
-      existing = { type, kgPerWeek: 1, disposalMethod: 'landfill' }
-      onChange([...items, existing])
-    }
-    return existing
-  }
-
   const updateItem = (type: string, changes: Partial<WasteInput>) => {
-    onChange(items.map((i) => (i.type === type ? { ...i, ...changes } : i)))
+    const exists = items.find((i) => i.type === type)
+    if (exists) {
+      onChange(items.map((i) => (i.type === type ? { ...i, ...changes } : i)))
+    } else {
+      onChange([...items, { type, kgPerWeek: 0, disposalMethod: 'landfill', ...changes }])
+    }
   }
 
   return (
