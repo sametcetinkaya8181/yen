@@ -1,0 +1,32 @@
+import type { CarbonFootprintRequest, CarbonFootprintResponse, FoodItem, WasteCategory } from '../types/carbon'
+
+const API_URL = 'http://localhost:5000/api/carbon'
+
+export async function calculateFootprint(data: CarbonFootprintRequest): Promise<CarbonFootprintResponse> {
+  const res = await fetch(`${API_URL}/calculate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) throw new Error('Hesaplama başarısız')
+  return res.json()
+}
+
+export async function searchFoods(query: string): Promise<FoodItem[]> {
+  if (!query.trim()) return []
+  const res = await fetch(`${API_URL}/foods/search?q=${encodeURIComponent(query)}`)
+  if (!res.ok) return []
+  return res.json()
+}
+
+export async function getAllFoods(): Promise<FoodItem[]> {
+  const res = await fetch(`${API_URL}/foods`)
+  if (!res.ok) return []
+  return res.json()
+}
+
+export async function getWasteCategories(): Promise<WasteCategory[]> {
+  const res = await fetch(`${API_URL}/waste/categories`)
+  if (!res.ok) return []
+  return res.json()
+}
