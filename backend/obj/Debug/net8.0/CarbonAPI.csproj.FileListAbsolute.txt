@@ -31,3 +31,4 @@ C:\Users\PC_4156_YD26\Desktop\yen\backend\obj\Debug\net8.0\refint\CarbonAPI.dll
 C:\Users\PC_4156_YD26\Desktop\yen\backend\obj\Debug\net8.0\CarbonAPI.pdb
 C:\Users\PC_4156_YD26\Desktop\yen\backend\obj\Debug\net8.0\CarbonAPI.genruntimeconfig.cache
 C:\Users\PC_4156_YD26\Desktop\yen\backend\obj\Debug\net8.0\ref\CarbonAPI.dll
+c:\Users\PC_4156_YD26\Desktop\yen\backend\obj\Debug\net8.0\CarbonAPI.sourcelink.json
