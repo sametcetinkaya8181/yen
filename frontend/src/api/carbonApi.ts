@@ -1,3 +1,4 @@
+import i18n from '../i18n'
 import type { CarbonFootprintRequest, CarbonFootprintResponse, FoodItem, WasteCategory } from '../types/carbon'
 
 const API_URL = 'http://localhost:5000/api/carbon'
@@ -8,7 +9,7 @@ export async function calculateFootprint(data: CarbonFootprintRequest): Promise<
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   })
-  if (!res.ok) throw new Error('Hesaplama başarısız')
+  if (!res.ok) throw new Error(i18n.t('carbonApi.calcError'))
   return res.json()
 }
 
@@ -40,7 +41,7 @@ export async function joinCampaign(data: { name: string; email: string; campaign
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   })
-  if (!res.ok) throw new Error('Katılım başarısız')
+  if (!res.ok) throw new Error(i18n.t('carbonApi.joinError'))
   return res.json()
 }
 

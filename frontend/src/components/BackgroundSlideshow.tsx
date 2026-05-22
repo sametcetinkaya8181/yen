@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const bgImages = [
   'https://images.pexels.com/photos/16638588/pexels-photo-16638588.jpeg?auto=compress&cs=tinysrgb&w=1920',
@@ -19,6 +20,7 @@ const bgImages = [
 ]
 
 export default function BackgroundSlideshow() {
+  const { t } = useTranslation()
   const [layerA, setLayerA] = useState({ url: bgImages[0], opacity: 0.5 })
   const [layerB, setLayerB] = useState({ url: bgImages[1], opacity: 0 })
   const idxRef = useRef(0)
@@ -63,7 +65,7 @@ export default function BackgroundSlideshow() {
       />
       <div className="bg-overlay" />
       <div className="bg-attribution">
-        Görsel kaynağı: Pexels.com (CC0 Lisansı)
+        {t('backgroundSlideshow.attribution')}
       </div>
     </div>
   )

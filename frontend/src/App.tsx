@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { CarbonFootprintRequest, CarbonFootprintResponse } from './types/carbon'
 import { calculateFootprint } from './api/carbonApi'
 import Header from './components/Header'
@@ -7,12 +8,14 @@ import CarbonResult from './components/CarbonResult'
 import Tips from './components/Tips'
 import Gallery from './components/Gallery'
 import CampaignsPage from './components/CampaignsPage'
+import WhyEarth from './components/WhyEarth'
 import BackgroundSlideshow from './components/BackgroundSlideshow'
 import './App.css'
 
-type Tab = 'calculator' | 'campaigns'
+type Tab = 'calculator' | 'campaigns' | 'blog'
 
 export default function App() {
+  const { t, i18n } = useTranslation()
   const [tab, setTab] = useState<Tab>('calculator')
   const [result, setResult] = useState<CarbonFootprintResponse | null>(null)
   const [loading, setLoading] = useState(false)
@@ -25,7 +28,7 @@ export default function App() {
       const res = await calculateFootprint(data)
       setResult(res)
     } catch {
-      setError('Hesaplama sırasında bir hata oluştu. Lütfen backend sunucusunun çalıştığından emin olun.')
+      setError(t('app.error'))
     } finally {
       setLoading(false)
     }
@@ -33,15 +36,24 @@ export default function App() {
 
   return (
     <div className="app">
+      <div className="lang-switcher">
+        <select value={i18n.language} onChange={(e) => { i18n.changeLanguage(e.target.value); localStorage.setItem('lang', e.target.value) }}>
+          <option value="tr">🇹🇷 TR</option>
+          <option value="en">🇬🇧 EN</option>
+        </select>
+      </div>
       <BackgroundSlideshow />
       <Header />
 
       <nav className="app-tabs">
         <button className={`tab ${tab === 'calculator' ? 'active' : ''}`} onClick={() => setTab('calculator')}>
-          📊 Hesaplayıcı
+          {t('app.tabCalculator')}
         </button>
         <button className={`tab ${tab === 'campaigns' ? 'active' : ''}`} onClick={() => setTab('campaigns')}>
-          🎯 Kampanyalar
+          {t('app.tabCampaigns')}
+        </button>
+        <button className={`tab ${tab === 'blog' ? 'active' : ''}`} onClick={() => setTab('blog')}>
+          {t('app.tabBlog')}
         </button>
       </nav>
 
@@ -56,10 +68,11 @@ export default function App() {
           </>
         )}
         {tab === 'campaigns' && <CampaignsPage />}
+        {tab === 'blog' && <WhyEarth />}
       </main>
 
       <footer>
-        <p>Bu uygulama sera gazı emisyonları hakkında farkındalık yaratmak amacıyla hazırlanmıştır.</p>
+        <p>{t('app.footer')}</p>
       </footer>
     </div>
   )

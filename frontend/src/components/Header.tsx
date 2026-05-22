@@ -1,11 +1,11 @@
+import { useTranslation } from 'react-i18next'
+
 export default function Header() {
+  const { t } = useTranslation()
   return (
     <header className="app-header">
-      <h1>🌿 Karbon Ayak İzi Farkındalığı</h1>
-      <p>
-        Günlük yaşamınızda ne kadar sera gazı yaydığınızı hesaplayın, etkisini görün ve
-        azaltma yollarını keşfedin.
-      </p>
+      <h1>{t('header.title')}</h1>
+      <p>{t('header.subtitle')}</p>
     </header>
   )
 }

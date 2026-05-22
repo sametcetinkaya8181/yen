@@ -51,6 +51,55 @@ body {
   padding: 24px 16px;
 }
 
+.lang-switcher {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ccc;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lang-switcher:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.lang-switcher select {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0 4px;
+}
+
+.lang-switcher select option {
+  background: #222;
+  color: #ccc;
+}
+
+.lang-switcher::after {
+  content: '▾';
+  font-size: 0.65rem;
+  color: #888;
+  margin-left: 2px;
+}
+
 .app-header {
   text-align: center;
   padding: 40px 20px;
@@ -1270,4 +1319,127 @@ footer {
   padding: 32px 0 16px;
   color: #666;
   font-size: 0.82rem;
+}
+
+/* ===== WHY EARTH ===== */
+.why-earth {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  margin: 20px 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.why-earth-hero {
+  position: relative;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+}
+
+.why-earth-hero-overlay {
+  text-align: center;
+  padding: 80px 40px;
+  background: rgba(0, 0, 0, 0.55);
+  width: 100%;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+}
+
+.why-earth-emoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.why-earth-hero h2 {
+  font-size: 2rem;
+  color: #6bcb77;
+  margin-bottom: 12px;
+}
+
+.why-earth-subtitle {
+  font-size: 1.1rem;
+  color: #ddd;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.why-earth-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.why-earth-section-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px) brightness(0.3);
+  transform: scale(1.1);
+}
+
+.why-earth-section.no-bg {
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.why-earth-section-content {
+  position: relative;
+  padding: 36px 40px;
+}
+
+.why-earth-section-content h3 {
+  font-size: 1.4rem;
+  color: #4d96ff;
+  margin-bottom: 16px;
+}
+
+.why-earth-section-content p {
+  line-height: 1.8;
+  color: #ddd;
+  font-size: 1rem;
+}
+
+.why-earth-section-content ul {
+  margin: 16px 0 0 24px;
+  list-style: none;
+}
+
+.why-earth-section-content ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  color: #ccc;
+}
+
+.why-earth-section-content ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: #ffd93d;
+}
+
+.why-earth-footer {
+  text-align: center;
+  padding: 32px 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.why-earth-footer p {
+  font-size: 1.2rem;
+  color: #6bcb77;
+  font-weight: 600;
 }

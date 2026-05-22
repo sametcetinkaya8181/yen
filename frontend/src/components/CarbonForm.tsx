@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { CarbonFootprintRequest, FoodInput, WasteInput } from '../types/carbon'
 import FoodSelector from './FoodSelector'
 import WasteDetail from './WasteDetail'
@@ -20,6 +21,7 @@ const defaultForm: CarbonFootprintRequest = {
 }
 
 export default function CarbonForm({ onCalculate, loading }: Props) {
+  const { t } = useTranslation()
   const [form, setForm] = useState<CarbonFootprintRequest>(defaultForm)
 
   const handleChange = (field: keyof CarbonFootprintRequest, value: string) => {
@@ -41,48 +43,48 @@ export default function CarbonForm({ onCalculate, loading }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="carbon-form">
-      <h2>🌍 Karbon Ayak İzi Hesaplayıcı</h2>
+      <h2>{t('carbonForm.title')}</h2>
 
       <fieldset>
-        <legend>🚗 Ulaşım</legend>
-        <label>Araba (yıllık km)
+        <legend>{t('carbonForm.transportation')}</legend>
+        <label>{t('carbonForm.car')}
           <input type="number" value={form.carKmPerYear} onChange={(e) => handleChange('carKmPerYear', e.target.value)} />
         </label>
-        <label>Otobüs (yıllık km)
+        <label>{t('carbonForm.bus')}
           <input type="number" value={form.busKmPerYear} onChange={(e) => handleChange('busKmPerYear', e.target.value)} />
         </label>
-        <label>Tren (yıllık km)
+        <label>{t('carbonForm.train')}
           <input type="number" value={form.trainKmPerYear} onChange={(e) => handleChange('trainKmPerYear', e.target.value)} />
         </label>
-        <label>Uçak (yıllık saat)
+        <label>{t('carbonForm.flight')}
           <input type="number" value={form.flightHoursPerYear} onChange={(e) => handleChange('flightHoursPerYear', e.target.value)} />
         </label>
       </fieldset>
 
       <fieldset>
-        <legend>💡 Enerji</legend>
-        <label>Elektrik (yıllık kWh)
+        <legend>{t('carbonForm.energy')}</legend>
+        <label>{t('carbonForm.electricity')}
           <input type="number" value={form.electricityKwhPerYear} onChange={(e) => handleChange('electricityKwhPerYear', e.target.value)} />
         </label>
-        <label>Doğalgaz (yıllık m³)
+        <label>{t('carbonForm.naturalGas')}
           <input type="number" value={form.naturalGasM3PerYear} onChange={(e) => handleChange('naturalGasM3PerYear', e.target.value)} />
         </label>
       </fieldset>
 
       <fieldset>
-        <legend>🥘 Beslenme</legend>
-        <p className="fieldset-desc">Aşağıda tükettiğiniz besinleri arayarak ekleyin ve haftalık miktarını girin.</p>
+        <legend>{t('carbonForm.food')}</legend>
+        <p className="fieldset-desc">{t('carbonForm.foodDesc')}</p>
         <FoodSelector selected={form.foods} onChange={handleFoodsChange} />
       </fieldset>
 
       <fieldset>
-        <legend>🗑️ Atık</legend>
-        <p className="fieldset-desc">Atık türlerinin haftalık miktarını ve bertaraf yöntemini seçin.</p>
+        <legend>{t('carbonForm.waste')}</legend>
+        <p className="fieldset-desc">{t('carbonForm.wasteDesc')}</p>
         <WasteDetail items={form.wasteItems} onChange={handleWasteChange} />
       </fieldset>
 
       <button type="submit" disabled={loading}>
-        {loading ? 'Hesaplanıyor...' : 'Karbon Ayak İzimi Hesapla'}
+        {loading ? t('carbonForm.submitting') : t('carbonForm.submit')}
       </button>
     </form>
   )

@@ -1,25 +1,28 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import CompostingCampaign from './CompostingCampaign'
 import GreenTariffCampaign from './GreenTariffCampaign'
 
-const campaigns = [
-  {
-    id: 'compost',
-    title: 'Kompost Kampanyası',
-    emoji: '🌱',
-    desc: 'Mutfak atıklarınızı kompost yaparak metan gazı oluşumunu engelleyin.',
-    component: CompostingCampaign,
-  },
-  {
-    id: 'green-tariff',
-    title: 'Yeşil Tarifeyi Seç, Tarafın Belli',
-    emoji: '⚡',
-    desc: 'Yeşil tarifeyi seç, tarafın belli — ama cüzdanın acır mı?',
-    component: GreenTariffCampaign,
-  },
-]
-
 export default function CampaignsPage() {
+  const { t } = useTranslation()
+
+  const campaigns = [
+    {
+      id: 'compost',
+      title: t('campaignsPage.compostTitle'),
+      emoji: '🌱',
+      desc: t('campaignsPage.compostDesc'),
+      component: CompostingCampaign,
+    },
+    {
+      id: 'green-tariff',
+      title: t('campaignsPage.greenTariffTitle'),
+      emoji: '⚡',
+      desc: t('campaignsPage.greenTariffDesc'),
+      component: GreenTariffCampaign,
+    },
+  ]
+
   const [activeCampaign, setActiveCampaign] = useState(campaigns[0].id)
 
   const ActiveComponent = campaigns.find((c) => c.id === activeCampaign)?.component
@@ -27,8 +30,8 @@ export default function CampaignsPage() {
   return (
     <section className="campaigns-page">
       <div className="campaigns-header">
-        <h2>🎯 Kampanyalar</h2>
-        <p>İklim değişikliğiyle mücadele etmek için düzenlenen kampanyalara katılın, etkinizi görün.</p>
+        <h2>{t('campaignsPage.title')}</h2>
+        <p>{t('campaignsPage.desc')}</p>
       </div>
 
       <div className="campaigns-tabs">

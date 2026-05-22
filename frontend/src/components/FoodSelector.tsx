@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { searchFoods, getAllFoods } from '../api/carbonApi'
 import type { FoodItem, FoodInput } from '../types/carbon'
 
@@ -8,11 +9,12 @@ interface Props {
 }
 
 export default function FoodSelector({ selected, onChange }: Props) {
+  const { t } = useTranslation()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<FoodItem[]>([])
   const [showDropdown, setShowDropdown] = useState(false)
   const [loading, setLoading] = useState(false)
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>()
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -84,7 +86,7 @@ export default function FoodSelector({ selected, onChange }: Props) {
       <div className="food-search-box">
         <input
           type="text"
-          placeholder="Besin ara (örn. dana eti, süt, elma)..."
+          placeholder={t('foodSelector.placeholder')}
           value={query}
           onChange={(e) => handleInputChange(e.target.value)}
           onFocus={() => query.trim() && setShowDropdown(true)}
@@ -98,7 +100,7 @@ export default function FoodSelector({ selected, onChange }: Props) {
             <li key={food.id} onClick={() => addFood(food)}>
               <strong>{food.name}</strong>
               <span className="food-category">{food.category}</span>
-              <span className="food-co2">{food.co2PerKg} kg CO₂/kg</span>
+              <span className="food-co2">{food.co2PerKg} {t('foodSelector.co2PerKg')}</span>
             </li>
           ))}
         </ul>
@@ -106,7 +108,7 @@ export default function FoodSelector({ selected, onChange }: Props) {
 
       {selected.length > 0 && (
         <div className="selected-foods">
-          <h4>Seçilen Besinler</h4>
+          <h4>{t('foodSelector.selectedTitle')}</h4>
           {selectedFoods.map(({ input, food }) => (
             <div key={input.foodId} className="selected-food-item">
               <span className="food-name">{food?.name ?? input.foodId}</span>
@@ -118,16 +120,16 @@ export default function FoodSelector({ selected, onChange }: Props) {
                   value={input.kgPerWeek}
                   onChange={(e) => updateAmount(input.foodId, parseFloat(e.target.value) || 0)}
                 />
-                <span>kg/hafta</span>
+                <span>{t('foodSelector.kgPerWeek')}</span>
               </div>
               <span className="food-annual-co2">
-                ~{((food?.co2PerKg ?? 0) * input.kgPerWeek * 52).toFixed(0)} kg CO₂/yıl
+                ~{((food?.co2PerKg ?? 0) * input.kgPerWeek * 52).toFixed(0)} {t('foodSelector.co2PerYear')}
               </span>
               <button className="remove-btn" onClick={() => removeFood(input.foodId)}>✕</button>
             </div>
           ))}
           <div className="food-total">
-            Toplam: <strong>{(totalCo2 / 1000).toFixed(2)} ton CO₂/yıl</strong>
+            <strong>{t('foodSelector.total', { total: (totalCo2 / 1000).toFixed(2) })}</strong>
           </div>
         </div>
       )}

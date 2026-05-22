@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { joinCampaign, getCampaignStats } from '../api/carbonApi'
 
 const greenRate = 5.88
@@ -6,10 +7,11 @@ const standardLowRate = 2.92
 const standardHighRate = 4.32
 
 function monthlyCost(kwh: number, rate: number) {
-  return (kwh * rate).toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+  return (kwh * rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })
 }
 
 export default function GreenTariffCampaign() {
+  const { t, i18n } = useTranslation()
   const [monthlyKwh, setMonthlyKwh] = useState(200)
   const [showDetail, setShowDetail] = useState(false)
 
@@ -48,7 +50,7 @@ export default function GreenTariffCampaign() {
       setHeardJoined(true)
       setHeardShowForm(false)
     } catch {
-      alert('Katılım sırasında bir hata oluştu.')
+      alert(t('carbonApi.joinError'))
     } finally {
       setHeardJoining(false)
     }
@@ -63,213 +65,204 @@ export default function GreenTariffCampaign() {
       setUserJoined(true)
       setUserShowForm(false)
     } catch {
-      alert('Katılım sırasında bir hata oluştu.')
+      alert(t('carbonApi.joinError'))
     } finally {
       setUserJoining(false)
     }
   }
 
+  const locale = i18n.language === 'tr' ? 'tr-TR' : 'en-US'
   const lowCap = 240
   const lowPortion = Math.min(monthlyKwh, lowCap)
   const highPortion = Math.max(0, monthlyKwh - lowCap)
   const standardTotal = lowPortion * standardLowRate + highPortion * standardHighRate
   const greenTotal = monthlyKwh * greenRate
   const diff = greenTotal - standardTotal
-  const diffPercent = (diff / standardTotal * 100).toFixed(0)
 
   return (
     <section className="campaign-section">
       <div className="campaign-hero">
         <span className="campaign-emoji">⚡</span>
-        <h2>Yeşil Tarifeyi Seç, Tarafın Belli Olsun</h2>
+        <h2>{t('greenTariffCampaign.title')}</h2>
         <p className="campaign-tagline">
-          Yeşil tarife, elektrik şirketinin yenilenebilir kaynaklardan (rüzgar, güneş, jeotermal)
-          ürettiği enerjiyi satın aldığın bir tarifedir.
+          {t('greenTariffCampaign.tagline')}
         </p>
       </div>
 
       <div className="campaign-grid">
         <div className="campaign-collective">
-          <h3>🙋 Yeşil Tarifeyi İlk Kez Duyanlar</h3>
+          <h3>{t('greenTariffCampaign.heardTitle')}</h3>
           <p className="collective-desc">
-            Yeşil tarifeyi ilk kez duydun ve "ben de yeşil tarifeliyim" demek mi istiyorsun?
-            Farkındalık yaratmak için sesimizi yükseltelim!
+            {t('greenTariffCampaign.heardDesc')}
           </p>
 
           <div className="collective-stats">
             <div className="collective-stat">
               <span className="cs-number">{heardParticipants}</span>
-              <span className="cs-label">kişi yeşil tarifeyi ilk kez duydum dedi</span>
+              <span className="cs-label">{t('greenTariffCampaign.heardStat')}</span>
             </div>
           </div>
 
           {!heardJoined && !heardShowForm && (
             <button className="join-btn" onClick={() => setHeardShowForm(true)}>
-              ⚡ Ben de yeşil tarifeyi ilk kez duydum
+              {t('greenTariffCampaign.heardButton')}
             </button>
           )}
 
           {heardShowForm && (
             <div className="join-form">
-              <input type="text" placeholder="Adınız" value={heardName} onChange={(e) => setHeardName(e.target.value)} />
-              <input type="email" placeholder="E-posta" value={heardEmail} onChange={(e) => setHeardEmail(e.target.value)} />
+              <input type="text" placeholder={t('greenTariffCampaign.placeholderName')} value={heardName} onChange={(e) => setHeardName(e.target.value)} />
+              <input type="email" placeholder={t('greenTariffCampaign.placeholderEmail')} value={heardEmail} onChange={(e) => setHeardEmail(e.target.value)} />
               <div className="join-form-actions">
                 <button className="join-btn" onClick={handleHeardJoin} disabled={heardJoining || !heardName.trim() || !heardEmail.trim()}>
-                  {heardJoining ? 'Kaydediliyor...' : 'Ben de duydum! ✅'}
+                  {heardJoining ? t('greenTariffCampaign.joining') : t('greenTariffCampaign.heardSubmit')}
                 </button>
-                <button className="cancel-btn" onClick={() => setHeardShowForm(false)}>Vazgeç</button>
+                <button className="cancel-btn" onClick={() => setHeardShowForm(false)}>{t('greenTariffCampaign.cancel')}</button>
               </div>
             </div>
           )}
 
           {heardJoined && (
             <div className="joined-message">
-              ✅ Teşekkürler! Yeşil tarife farkındalığına katkıda bulundun. Şu an {heardParticipants} kişiyle birliktesin!
+              {t('greenTariffCampaign.heardJoined', { count: heardParticipants })}
             </div>
           )}
         </div>
 
         <div className="campaign-collective">
-          <h3>✅ Ben de Yeşil Tarifeli Oldum</h3>
+          <h3>{t('greenTariffCampaign.userTitle')}</h3>
           <p className="collective-desc">
-            Yeşil tarifeye geçtin mi? Elektrik sağlayıcından yeşil tarifeye geçiş yaptıysan
-            burada görün! Ne kadar kişi yeşil tarifeyi tercih etmiş görelim.
+            {t('greenTariffCampaign.userDesc')}
           </p>
 
           <div className="collective-stats">
             <div className="collective-stat">
               <span className="cs-number">{userParticipants}</span>
-              <span className="cs-label">kişi yeşil tarifeli oldu</span>
+              <span className="cs-label">{t('greenTariffCampaign.userStat')}</span>
             </div>
           </div>
 
           {!userJoined && !userShowForm && (
             <button className="join-btn" onClick={() => setUserShowForm(true)}>
-              ✅ Ben de yeşil tarifeli oldum
+              {t('greenTariffCampaign.userButton')}
             </button>
           )}
 
           {userShowForm && (
             <div className="join-form">
-              <input type="text" placeholder="Adınız" value={userName} onChange={(e) => setUserName(e.target.value)} />
-              <input type="email" placeholder="E-posta" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
+              <input type="text" placeholder={t('greenTariffCampaign.placeholderName')} value={userName} onChange={(e) => setUserName(e.target.value)} />
+              <input type="email" placeholder={t('greenTariffCampaign.placeholderEmail')} value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
               <div className="join-form-actions">
                 <button className="join-btn" onClick={handleUserJoin} disabled={userJoining || !userName.trim() || !userEmail.trim()}>
-                  {userJoining ? 'Kaydediliyor...' : 'Yeşil tarifeli oldum! ✅'}
+                  {userJoining ? t('greenTariffCampaign.joining') : t('greenTariffCampaign.userSubmit')}
                 </button>
-                <button className="cancel-btn" onClick={() => setUserShowForm(false)}>Vazgeç</button>
+                <button className="cancel-btn" onClick={() => setUserShowForm(false)}>{t('greenTariffCampaign.cancel')}</button>
               </div>
             </div>
           )}
 
           {userJoined && (
             <div className="joined-message">
-              ✅ Harika! Yeşil tarifeye geçiş yaptığın için teşekkürler. Şu an {userParticipants} kişiyle birliktesin!
+              {t('greenTariffCampaign.userJoined', { count: userParticipants })}
             </div>
           )}
         </div>
       </div>
 
       <div className="campaign-why-expensive">
-        <h3>💸 Yeşil tarife neden bu kadar pahalı?</h3>
+        <h3>{t('greenTariffCampaign.whyExpensive')}</h3>
         <p>
-          "Doğayı seçiyorum" derken cüzdanını cezalandırma. Yeşil tarife standart tarifeden
-          çok daha pahalı. <strong>Peki neden?</strong>
+          {t('greenTariffCampaign.whyExpensiveDesc')}
         </p>
       </div>
 
       <div className="campaign-stats">
         <div className="stat-card highlight">
-          <span className="stat-number">%101 zam</span>
-          <span className="stat-label">Yeşil tarife, standart tarifeden bu kadar daha pahalı</span>
+          <span className="stat-number">{t('greenTariffCampaign.statPriceDiffValue')}</span>
+          <span className="stat-label">{t('greenTariffCampaign.statPriceDiff')}</span>
         </div>
         <div className="stat-card">
           <span className="stat-number">{greenRate.toFixed(2)} TL/kWh</span>
-          <span className="stat-label">Yeşil tarife birim fiyatı (vergiler hariç)</span>
+          <span className="stat-label">{t('greenTariffCampaign.statGreenRate')}</span>
         </div>
         <div className="stat-card">
           <span className="stat-number">{standardLowRate.toFixed(2)} TL/kWh</span>
-          <span className="stat-label">Standart düşük kademe birim fiyatı (≤8 kWh/gün)</span>
+          <span className="stat-label">{t('greenTariffCampaign.statStandardLow')}</span>
         </div>
         <div className="stat-card">
           <span className="stat-number">{standardHighRate.toFixed(2)} TL/kWh</span>
-          <span className="stat-label">Standart yüksek kademe birim fiyatı ({'>'}8 kWh/gün)</span>
+          <span className="stat-label">{t('greenTariffCampaign.statStandardHigh')}</span>
         </div>
       </div>
 
       <div className="campaign-calculator">
-        <h3>📊 Cebinize Etkisi</h3>
-        <p className="calc-hint">Aylık tüketiminizi girerek yeşil tarifenin faturanıza etkisini görün.</p>
+        <h3>{t('greenTariffCampaign.calculatorTitle')}</h3>
+        <p className="calc-hint">{t('greenTariffCampaign.calculatorHint')}</p>
         <div className="calc-row">
-          <label>Aylık elektrik tüketiminiz (kWh):</label>
+          <label>{t('greenTariffCampaign.calculatorLabel')}</label>
           <div className="calc-input-group">
             <button onClick={() => setMonthlyKwh(Math.max(50, monthlyKwh - 10))}>−</button>
             <input type="number" value={monthlyKwh} onChange={(e) => setMonthlyKwh(parseFloat(e.target.value) || 0)} step="10" min="50" />
             <button onClick={() => setMonthlyKwh(monthlyKwh + 10)}>+</button>
-            <span>kWh/ay</span>
+            <span>{t('greenTariffCampaign.calculatorUnit')}</span>
           </div>
         </div>
 
         <div className="calc-results">
           <div className="calc-result-item">
-            <span>Standart tarife ile faturanız:</span>
-            <strong className="text-green">{standardTotal.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} TL/ay</strong>
+            <span>{t('greenTariffCampaign.standardBill')}</span>
+            <strong className="text-green">{standardTotal.toLocaleString(locale, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} {t('greenTariffCampaign.unitTLPerMonth')}</strong>
           </div>
           <div className="calc-result-item">
-            <span>Yeşil tarife ile faturanız:</span>
-            <strong className="text-red">{monthlyCost(monthlyKwh, greenRate)} TL/ay</strong>
+            <span>{t('greenTariffCampaign.greenBill')}</span>
+            <strong className="text-red">{monthlyCost(monthlyKwh, greenRate)} {t('greenTariffCampaign.unitTLPerMonth')}</strong>
           </div>
           <div className="calc-result-item highlight">
-            <span>Aradaki fark (yıllık):</span>
-            <strong className="text-red">{(diff * 12).toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} TL/yıl</strong>
+            <span>{t('greenTariffCampaign.annualDiff')}</span>
+            <strong className="text-red">{(diff * 12).toLocaleString(locale, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} {t('greenTariffCampaign.unitTLPerYear')}</strong>
           </div>
         </div>
       </div>
 
       <div className="campaign-collective">
-        <h3>🔍 Yeşil Tarife Nedir?</h3>
+        <h3>{t('greenTariffCampaign.whatIsGreenTitle')}</h3>
         <p className="collective-desc">
-          Yeşil tarife, elektrik şirketlerinin yenilenebilir enerji kaynaklarından (rüzgar, güneş, jeotermal,
-          biyokütle) ürettiği elektriği satın almanızı sağlayan bir tarifedir. Yani faturanızın bir kısmı
-          doğrudan yenilenebilir enerji üreticilerine gider.
+          {t('greenTariffCampaign.whatIsGreenDesc1')}
         </p>
         <p className="collective-desc">
-          Kulağa harika geliyor, değil mi? Ama işin acı gerçeği: <strong>yeşil tarife standart tarifeden
-          çok daha pahalı</strong>. Türkiye'de bir mesken abonesi yeşil tarifeyi seçtiğinde aktif enerji
-          bedeli 345.47 kr/kWh olarak uygulanıyor. Oysa aynı abone standart tarifede düşük kademede
-          yalnızca 49.41 kr/kWh, yüksek kademede ise 189.58 kr/kWh ödüyor.
+          {t('greenTariffCampaign.whatIsGreenDesc2')}
         </p>
 
         {!showDetail && (
           <button className="join-btn" onClick={() => setShowDetail(true)}>
-            📋 Detaylı Karşılaştırmayı Göster
+            {t('greenTariffCampaign.showDetail')}
           </button>
         )}
 
         {showDetail && (
           <div className="green-detail">
-            <h4>📋 Tarife Karşılaştırması (AG Tek Terim Mesken)</h4>
+            <h4>{t('greenTariffCampaign.detailTitle')}</h4>
             <div className="comparison-table">
               <div className="comparison-row header">
-                <span>Kalem</span>
-                <span>Standart (Düşük)</span>
-                <span>Standart (Yüksek)</span>
-                <span>Yeşil Tarife</span>
+                <span>{t('greenTariffCampaign.tableHeaderItem')}</span>
+                <span>{t('greenTariffCampaign.tableHeaderStandardLow')}</span>
+                <span>{t('greenTariffCampaign.tableHeaderStandardHigh')}</span>
+                <span>{t('greenTariffCampaign.tableHeaderGreen')}</span>
               </div>
               <div className="comparison-row">
-                <span>Aktif Enerji Bedeli</span>
+                <span>{t('greenTariffCampaign.tableRowEnergy')}</span>
                 <span>49.41 kr/kWh</span>
                 <span>189.58 kr/kWh</span>
                 <span className="highlight-red">345.47 kr/kWh</span>
               </div>
               <div className="comparison-row">
-                <span>Dağıtım Bedeli</span>
+                <span>{t('greenTariffCampaign.tableRowDistribution')}</span>
                 <span>242.49 kr/kWh</span>
                 <span>242.49 kr/kWh</span>
                 <span>242.49 kr/kWh</span>
               </div>
               <div className="comparison-row total">
-                <span>Toplam (vergisiz)</span>
+                <span>{t('greenTariffCampaign.tableRowTotal')}</span>
                 <span>~{standardLowRate.toFixed(2)} TL/kWh</span>
                 <span>~{standardHighRate.toFixed(2)} TL/kWh</span>
                 <span className="highlight-red">~{greenRate.toFixed(2)} TL/kWh</span>
@@ -277,48 +270,45 @@ export default function GreenTariffCampaign() {
             </div>
 
             <div className="green-critique">
-              <h4>⚖️ Adil mi?</h4>
+              <h4>{t('greenTariffCampaign.fairnessTitle')}</h4>
               <p>
-                Yeşil tarife fiyatı, EPDK tarafından belirlenen tavan fiyat olan 345.47 kr/kWh üzerinden
-                uygulanıyor. Bu fiyat, serbest piyasada yenilenebilir enerji maliyetinin çok üzerinde.
-                Oysa güneş ve rüzgar enerjisi artık <strong>kömür ve doğalgazdan daha ucuz</strong>
-                elektrik üretiyor. Peki neden yeşil tarife daha pahalı?
+                {t('greenTariffCampaign.fairnessDesc')}
               </p>
               <ul>
-                <li><strong>Çifte marj:</strong> Dağıtım şirketleri hem standart tarifede hem yeşil tarifede aynı dağıtım bedelini alıyor, üstüne yeşil enerji primi ekliyor.</li>
-                <li><strong>Talep az, fiyat yüksek:</strong> Yeşil tarifeye talep düşük olduğu için ölçek ekonomisi işlemiyor ve birim maliyet yüksek kalıyor.</li>
-                <li><strong>Teşvik eksikliği:</strong> Devlet yenilenebilir enerjiyi teşvik etmek yerine yeşil tarifeyi lüks tüketim gibi konumlandırıyor.</li>
-                <li><strong>Şeffaflık sorunu:</strong> Ödediğiniz yeşil primin gerçekten yeni yenilenebilir enerji yatırımlarına gittiğine dair bağımsız denetim mekanizması zayıf.</li>
+                <li>{t('greenTariffCampaign.critique1')}</li>
+                <li>{t('greenTariffCampaign.critique2')}</li>
+                <li>{t('greenTariffCampaign.critique3')}</li>
+                <li>{t('greenTariffCampaign.critique4')}</li>
               </ul>
             </div>
 
             <div className="green-solution">
-              <h4>💡 Ne Yapmalı?</h4>
+              <h4>{t('greenTariffCampaign.solutionTitle')}</h4>
               <div className="howto-grid">
                 <div className="howto-card">
                   <span className="howto-icon">🏠</span>
-                  <h4>Çatı Güneş Paneli</h4>
-                  <p>Müstakil eviniz varsa çatınıza güneş paneli kurarak hem elektriğinizi üretin hem de fazlasını şebekeye satın.</p>
+                  <h4>{t('greenTariffCampaign.solution1Title')}</h4>
+                  <p>{t('greenTariffCampaign.solution1Desc')}</p>
                 </div>
                 <div className="howto-card">
                   <span className="howto-icon">📢</span>
-                  <h4>EPDK'ya Seslen</h4>
-                  <p>Yeşil tarifenin makul fiyatlandırılması için EPDK'ya ve milletvekillerine şikayet bildirimi yap.</p>
+                  <h4>{t('greenTariffCampaign.solution2Title')}</h4>
+                  <p>{t('greenTariffCampaign.solution2Desc')}</p>
                 </div>
                 <div className="howto-card">
                   <span className="howto-icon">🤝</span>
-                  <h4>Toplu Talep Oluştur</h4>
-                  <p>Toplu talebin olduğu yerde fiyat düşer. Bu kampanyayı yayarak yeşil tarifenin yaygınlaşmasını sağla.</p>
+                  <h4>{t('greenTariffCampaign.solution3Title')}</h4>
+                  <p>{t('greenTariffCampaign.solution3Desc')}</p>
                 </div>
                 <div className="howto-card">
                   <span className="howto-icon">⚡</span>
-                  <h4>Enerji Verimliliği</h4>
-                  <p>Tüketimini azaltmak yeşil tarifeye geçmekten daha etkili. Enerji sınıfı A+ cihazlar kullan, gereksiz tüketimi kes.</p>
+                  <h4>{t('greenTariffCampaign.solution4Title')}</h4>
+                  <p>{t('greenTariffCampaign.solution4Desc')}</p>
                 </div>
               </div>
             </div>
 
-            <button className="cancel-btn" onClick={() => setShowDetail(false)}>Gizle</button>
+            <button className="cancel-btn" onClick={() => setShowDetail(false)}>{t('greenTariffCampaign.hideDetail')}</button>
           </div>
         )}
       </div>
