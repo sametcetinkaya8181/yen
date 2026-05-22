@@ -69,11 +69,13 @@ export default function GreenTariffCampaign() {
     }
   }
 
-  const standardRate = monthlyKwh <= 240 ? standardLowRate : standardHighRate
-  const standardTotal = monthlyKwh * standardRate
+  const lowCap = 240
+  const lowPortion = Math.min(monthlyKwh, lowCap)
+  const highPortion = Math.max(0, monthlyKwh - lowCap)
+  const standardTotal = lowPortion * standardLowRate + highPortion * standardHighRate
   const greenTotal = monthlyKwh * greenRate
   const diff = greenTotal - standardTotal
-  const diffPercent = ((greenRate - standardRate) / standardRate * 100).toFixed(0)
+  const diffPercent = (diff / standardTotal * 100).toFixed(0)
 
   return (
     <section className="campaign-section">
@@ -178,7 +180,7 @@ export default function GreenTariffCampaign() {
 
       <div className="campaign-stats">
         <div className="stat-card highlight">
-          <span className="stat-number">%{diffPercent} zam</span>
+          <span className="stat-number">%101 zam</span>
           <span className="stat-label">Yeşil tarife, standart tarifeden bu kadar daha pahalı</span>
         </div>
         <div className="stat-card">
@@ -211,7 +213,7 @@ export default function GreenTariffCampaign() {
         <div className="calc-results">
           <div className="calc-result-item">
             <span>Standart tarife ile faturanız:</span>
-            <strong className="text-green">{monthlyCost(monthlyKwh, standardRate)} TL/ay</strong>
+            <strong className="text-green">{standardTotal.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} TL/ay</strong>
           </div>
           <div className="calc-result-item">
             <span>Yeşil tarife ile faturanız:</span>
