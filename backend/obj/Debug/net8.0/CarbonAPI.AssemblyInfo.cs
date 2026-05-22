@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarbonAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8df90b5827992f2c10a6a090a6f5b108b3e3f357")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66550041c26dc4c36b5e19fc446b9031dc97e9e9")]
 [assembly: System.Reflection.AssemblyProductAttribute("CarbonAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CarbonAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
