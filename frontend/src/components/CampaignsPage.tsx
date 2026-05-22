@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import CompostingCampaign from './CompostingCampaign'
+import GreenTariffCampaign from './GreenTariffCampaign'
 
 const campaigns = [
   {
@@ -8,6 +9,13 @@ const campaigns = [
     emoji: '🌱',
     desc: 'Mutfak atıklarınızı kompost yaparak metan gazı oluşumunu engelleyin.',
     component: CompostingCampaign,
+  },
+  {
+    id: 'green-tariff',
+    title: 'Yeşil Tarifeyi Seç, Tarafın Belli',
+    emoji: '⚡',
+    desc: 'Yeşil tarifeyi seç, tarafın belli — ama cüzdanın acır mı?',
+    component: GreenTariffCampaign,
   },
 ]
 

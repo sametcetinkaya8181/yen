@@ -144,6 +144,38 @@ main {
   flex-wrap: wrap;
 }
 
+.campaign-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .campaign-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.campaign-why-expensive {
+  background: rgba(255, 200, 50, 0.05);
+  border: 1px solid rgba(255, 200, 50, 0.12);
+  border-radius: 12px;
+  padding: 18px 20px;
+  text-align: center;
+}
+
+.campaign-why-expensive h3 {
+  font-size: 1rem;
+  color: #ffd93d;
+  margin-bottom: 8px;
+}
+
+.campaign-why-expensive p {
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
 .campaign-tab {
   padding: 10px 20px;
   font-size: 0.9rem;
@@ -1129,6 +1161,108 @@ button:disabled {
   font-size: 0.78rem;
   color: #ff8a80;
   text-align: center;
+}
+
+/* ===== GREEN TARIFF CAMPAIGN ===== */
+.calc-hint {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.green-detail {
+  margin-top: 20px;
+}
+
+.green-detail h4 {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin-bottom: 12px;
+}
+
+.comparison-table {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  align-items: center;
+}
+
+.comparison-row.header {
+  background: rgba(255, 255, 255, 0.06);
+  font-weight: 600;
+  color: #aaa;
+}
+
+.comparison-row:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.comparison-row.total {
+  font-weight: 600;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.highlight-red {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.green-critique {
+  background: rgba(255, 107, 107, 0.06);
+  border: 1px solid rgba(255, 107, 107, 0.15);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.green-critique h4 {
+  color: #ff8a80;
+  margin-bottom: 10px;
+}
+
+.green-critique p {
+  font-size: 0.85rem;
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.green-critique ul {
+  list-style: none;
+  padding: 0;
+}
+
+.green-critique li {
+  font-size: 0.82rem;
+  color: #bbb;
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.green-critique li::before {
+  content: '⚠️';
+  position: absolute;
+  left: 0;
+}
+
+.green-solution {
+  margin-bottom: 16px;
+}
+
+.green-solution h4 {
+  color: #6bcb77;
+  margin-bottom: 14px;
 }
 
 footer {
